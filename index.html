@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chá do Cassiel</title>
+<meta name="description" content="Você está convidado(a) para o chá de bebê do Cassiel. Veja a data, o local e escolha um presente.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&family=Alex+Brush&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="inicio">
+
+<header class="site-header" id="site-header"></header>
+
+<main>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <svg class="star" style="top:6%;right:8%" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6L12 17.2l-6.2 4.5 2.4-7.6L2 9.6h7.6z"/></svg>
+      <svg class="star" style="top:40%;right:2%;animation-delay:.7s" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6L12 17.2l-6.2 4.5 2.4-7.6L2 9.6h7.6z"/></svg>
+      <svg class="star" style="bottom:30%;left:0;animation-delay:1.3s" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6L12 17.2l-6.2 4.5 2.4-7.6L2 9.6h7.6z"/></svg>
+      <img class="hero-moon" src="assets/img/moon.png" alt="">
+      <h1 class="hero-title">Chá do <span class="script">Cassiel</span></h1>
+      <p class="hero-subtitle">Um dia especial para celebrar a chegada do nosso pequeno.</p>
+      <div class="hero-info-row">
+        <span class="hero-info"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span><strong>20/09</strong>Domingo</span></span>
+        <span class="hero-info"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><strong>15h30</strong></span></span>
+        <a class="hero-info" href="https://www.google.com/maps/search/?api=1&query=Maria+Bernardes+da+Silva%2C+124+-+Lot+S%C3%A3o+Rafael" target="_blank" rel="noopener noreferrer"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span><strong>Maria Bernardes da Silva, 124</strong>Lot São Rafael</span></a>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-lg" href="presentes.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>Quero presentear o Cassiel</a>
+        <a class="btn btn-secondary btn-lg" href="sobre.html">Ver informações do chá</a>
+      </div>
+    </div>
+    <div class="hero-illustration">
+      <img src="assets/img/hero-balloon.png" alt="Ursinho num balão de ar quente">
+    </div>
+  </div>
+</section>
+
+<div class="home">
+
+  <!-- SUGESTÃO DE PRESENTE -->
+  <section class="panel suggestion reveal" aria-label="Sugestão de presente">
+    <img class="panel-art" src="assets/img/bottle-star.png" alt="" style="margin:0 auto">
+    <div class="suggestion-main">
+      <span class="heart">♥</span>
+      <h2>Sugestão de presente</h2>
+      <span class="heart">♥</span>
+      <p class="highlight">Fralda P ou M e mimo</p>
+      <p class="suggestion-note">*Qualquer fralda, menos a Huggies Azul.</p>
+    </div>
+    <div class="suggestion-opt">
+      <img src="assets/img/bag.png" alt="">
+      <p>Lista de presentes<br>virtual no link</p>
+      <a class="btn btn-secondary btn-sm" href="presentes.html">Ver presentes</a>
+    </div>
+    <div class="suggestion-opt">
+      <img src="assets/img/store.png" alt="">
+      <p>Ou presencial na loja<br>Sonho de Criança</p>
+      <a class="btn btn-secondary btn-sm" href="#" data-external="loja">Ver loja</a>
+    </div>
+  </section>
+
+  <!-- FRALDAS + PRESENTES -->
+  <div class="home-two">
+    <section class="panel reveal" aria-labelledby="h-fraldas">
+      <div class="panel-head">
+        <img class="panel-art" src="assets/img/diaper.png" alt="">
+        <div class="center">
+          <h2 id="h-fraldas">Fraldas</h2>
+          <p class="lead">Ajude a montar o estoque do pequeno Cassiel.</p>
+          <span class="heart">♥</span>
+        </div>
+        <img class="panel-art" src="assets/img/moon.png" alt="" style="width:80px">
+      </div>
+      <div class="preview-grid" id="diaperPreview"></div>
+      <div class="panel-foot"><a class="link-arrow" href="fraldas.html">Ver todas as fraldas <span aria-hidden="true">◯</span></a></div>
+    </section>
+
+    <section class="panel reveal" aria-labelledby="h-presentes">
+      <div class="panel-head">
+        <div class="center">
+          <h2 id="h-presentes">Presentes</h2>
+          <p class="lead">Escolha um mimo para fazer parte da chegada do Cassiel.</p>
+          <span class="heart">♥</span>
+        </div>
+        <img class="panel-art" src="assets/img/teddy.png" alt="">
+      </div>
+      <nav class="cat-row" id="catRow" aria-label="Categorias"></nav>
+      <div class="preview-grid" id="giftPreview"></div>
+      <div class="panel-foot"><a class="link-arrow" href="presentes.html">Ver todos os presentes <span aria-hidden="true">→</span></a></div>
+    </section>
+  </div>
+
+  <!-- SOBRE O CHÁ -->
+  <section class="panel about-home reveal" aria-labelledby="h-sobre">
+    <a class="about-intro" href="sobre.html" style="text-decoration:none">
+      <img src="assets/img/bear-heart-balloon.png" alt="">
+      <div>
+        <h2 id="h-sobre">Sobre o chá</h2>
+        <p style="margin-top:8px">Preparamos tudo com muito carinho para celebrar a chegada do nosso pequeno Cassiel ao lado das pessoas que fazem parte da nossa história.</p>
+        <span class="heart" style="display:block;margin-top:8px">♥</span>
+      </div>
+    </a>
+    <div class="sub-panel">
+      <h3>Como será?</h3>
+      <p class="lead">Será um chá da tarde preparado com carinho para receber nossos convidados.</p>
+      <ul class="info-list">
+        <li><span class="emoji">☕</span><span>Chá da tarde</span></li>
+        <li><span class="emoji">🎁</span><span>Lembrancinha para os convidados</span></li>
+        <li><span class="emoji">🎲</span><span>Rodadas de bingo</span></li>
+        <li><span class="emoji">🏆</span><span>Presentes especiais para os vencedores dos bingos</span></li>
+        <li><span class="emoji">🧸</span><span>Muito carinho para celebrar a chegada do Cassiel</span></li>
+      </ul>
+    </div>
+    <div class="sub-panel bingo-panel">
+      <h3>Vai ter bingo!</h3>
+      <p>Além do chá da tarde, teremos algumas rodadas de bingo com presentes especiais para os vencedores.</p>
+      <img src="assets/img/bingo.png" alt="Cartela de bingo">
+      <a class="link-arrow" href="sobre.html">Ver detalhes do chá →</a>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer class="site-footer" id="site-footer"></footer>
+<a class="fab" id="whatsappFab" href="#" target="_blank" rel="noopener noreferrer" aria-label="Confirmar presença pelo WhatsApp">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.7.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+  Confirmar presença
+</a>
+
+<script src="assets/app.js"></script>
+<script>
+function initPage(){
+  function draw(){
+    document.getElementById('diaperPreview').innerHTML = DIAPERS.slice(0,3).map(miniDiaper).join('');
+    document.getElementById('giftPreview').innerHTML = GIFTS.filter(g=>g.featured).slice(0,3).map(miniGift).join('');
+  }
+  document.getElementById('catRow').innerHTML = GIFT_CATEGORIES.map(c =>
+    `<a class="cat" href="presentes.html?cat=${encodeURIComponent(c.key)}"><img src="${c.img}" alt=""><span>${esc(c.key)}</span></a>`).join('');
+  draw(); onRerender(draw);
+}
+</script>
+</body>
+</html>
