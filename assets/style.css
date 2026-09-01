@@ -235,3 +235,11 @@ svg{display:block}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 @media(max-width:559px){.brand>span:not(.script){display:none}.panel-head .panel-art:last-child:not(:first-child){display:none}}
 @media(max-width:480px){.mini-card .btn{font-size:11px;padding:8px 4px;letter-spacing:0}}
+
+/* paginação */
+.page-info{text-align:center;font-size:13px;color:var(--brown-soft);margin:0 0 14px}
+.pager{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:28px;flex-wrap:wrap}
+.page-btn{min-width:44px;min-height:44px;border-radius:999px;border:1px solid var(--beige);background:rgba(255,255,255,.6);color:var(--brown-soft);font-size:14px;font-weight:500}
+.page-btn.active{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
+.page-btn:disabled{opacity:.4;cursor:not-allowed}
+.page-btn.nav{font-size:18px}
