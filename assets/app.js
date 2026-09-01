@@ -67,7 +67,7 @@ function renderHeader(){
   const links=cls=>NAV.map(([id,href,label])=>`<a class="${cls} ${cur===id?'active':''}" href="${href}">${label}</a>`).join('');
   $('#site-header').innerHTML=`
     <div class="header-inner">
-      <a class="brand" href="index.html"><img src="assets/img/hero-balloon.png" alt=""><span>Chá do</span><span class="script">Cassiel</span></a>
+      <a class="brand" href="index.html"><img src="assets/img/teddy.png" alt=""><span>Chá do</span><span class="script">Cassiel</span></a>
       <nav class="desktop-nav" aria-label="Principal">${links('nav-link')}</nav>
       <a class="btn btn-primary btn-sm header-cta" href="presentes.html">${ICON_GIFT} Quero presentear</a>
       <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
