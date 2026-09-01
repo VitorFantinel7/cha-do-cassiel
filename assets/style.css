@@ -57,10 +57,10 @@ svg{display:block}
 .hero-inner{position:relative;max-width:1180px;margin:0 auto;padding:36px 16px 440px;display:grid;gap:24px;align-items:center}
 @media(min-width:900px){.hero-inner{grid-template-columns:1fr 1fr;padding:48px 32px 56px;gap:32px}}
 .hero-text{position:relative;text-align:center;padding:32px 16px 8px}
-.hero-band{position:relative;width:100%;max-width:1440px;margin:0 auto}
+.hero-band{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
 .hero-band-m{display:block;width:100%;height:auto}
 @media(min-width:900px){
-  .hero-band{aspect-ratio:1024/552;background:url('img/hero-band.png') center center/contain no-repeat}
+  .hero-band{aspect-ratio:1024/600;background:url('img/hero-band.png') center center/contain no-repeat}
   .hero-band-m{display:none}
   .hero-text{position:absolute;left:6%;top:50%;transform:translateY(-50%);width:41%;text-align:left}
   .hero-moon{display:none}
