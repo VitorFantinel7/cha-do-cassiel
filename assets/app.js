@@ -621,7 +621,7 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;'
 function page(){ return document.body.dataset.page||'inicio'; }
 
 /* ===================== LAYOUT COMPARTILHADO ===================== */
-const NAV=[['inicio','index.html','Início'],['lista','index.html#lista','Lista de presentes'],['fraldas','fraldas.html','Fraldas'],['presentes','presentes.html','Presentes'],['sobre','sobre.html','Sobre o chá']];
+const NAV=[['inicio','index.html','Início'],['lista','lista.html','Lista de presentes'],['fraldas','fraldas.html','Fraldas'],['presentes','presentes.html','Presentes'],['sobre','sobre.html','Sobre o chá']];
 const ICON_GIFT='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>';
 
 function renderHeader(){
@@ -658,7 +658,65 @@ function renderFooter(){
 }
 
 function renderModal(){
-  document.body.insertAdjacentHTML('beforeend','<div class="toast" id="toast" role="status"></div>');
+  document.body.insertAdjacentHTML('beforeend',`
+  <div class="modal-overlay" id="modal">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Fechar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <h3 id="modalTitle">Que carinho! 💙</h3>
+      <p class="modal-product" id="modalProduct"></p>
+      <p class="modal-text">Deixe seu nome para riscar esse presente da lista — assim ninguém compra repetido.</p>
+      <form class="modal-form" id="reserveForm" novalidate>
+        <label for="guestName">Seu nome</label>
+        <input id="guestName" type="text" placeholder="Digite seu nome" autocomplete="name" aria-required="true">
+        <p class="form-error" id="formError" role="alert" hidden></p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="modalCancel">Voltar</button>
+          <button type="submit" class="btn btn-primary">Riscar da lista</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>`);
+  const modal=$('#modal'), nameInput=$('#guestName'), err=$('#formError');
+  let currentId=null;
+  window.openReserve=function(id){
+    currentId=id;
+    const item=DIAPERS.find(d=>d.id===id)||GIFTS.find(g=>g.id===id);
+    if(!item) return;
+    $('#modalProduct').textContent=item.size?`Fralda ${item.name} — Tam. ${item.size}`:item.name;
+    nameInput.value=''; err.hidden=true;
+    modal.classList.add('open'); document.body.style.overflow='hidden';
+    setTimeout(()=>nameInput.focus(),60);
+  };
+  function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; currentId=null; }
+  $('#modalClose').addEventListener('click',closeModal);
+  $('#modalCancel').addEventListener('click',closeModal);
+  modal.addEventListener('mousedown',e=>{ if(e.target===modal) closeModal(); });
+  window.addEventListener('keydown',e=>{ if(e.key==='Escape'&&modal.classList.contains('open')) closeModal(); });
+  $('#reserveForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const name=nameInput.value.trim();
+    if(!name){ err.textContent='Por favor, digite seu nome para continuar.'; err.hidden=false; nameInput.focus(); return; }
+    err.hidden=true;
+    const id=currentId;
+    const isDiaper=!!DIAPERS.find(d=>d.id===id);
+    const btn=e.target.querySelector('button[type=submit]');
+    btn.disabled=true; btn.textContent='Riscando...';
+    const result=await registerPurchase(isDiaper? id+'#'+Date.now() : id, name);
+    btn.disabled=false; btn.textContent='Riscar da lista';
+    if(result==='conflict'){ await loadPurchases(); closeModal(); rerender(); toast('Ops! Alguém acabou de reservar esse presente 💙'); return; }
+    if(result==='error'){ err.textContent='Não foi possível reservar agora. Tente de novo em instantes.'; err.hidden=false; return; }
+    if(!isDiaper) purchased[id]=name;
+    purchaseRows.push({item_id:isDiaper? id+'#x':id, guest_name:name});
+    closeModal();
+    // animação de riscar no card visível antes de redesenhar
+    const card=document.querySelector(`[data-lista-card="${id}"]`);
+    if(card && !isDiaper){
+      card.classList.add('riscado');
+      setTimeout(()=>rerender(),950);
+    } else { rerender(); }
+    toast(`Obrigado, ${name}! Presente riscado da lista 💙`);
+  });
 }
 let toastTimer;
 function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),4000); }
@@ -709,51 +767,30 @@ function giftCard(g){
 }
 
 
-/* ===================== LISTA DE PRESENTES (reservas) ===================== */
-function itemLabel(rawId){
-  const id=rawId.split('#')[0];
-  const d=DIAPERS.find(x=>x.id===id); if(d) return `Fralda ${d.name} (${d.size})`;
-  const g=GIFTS.find(x=>x.id===id); if(g) return g.name;
-  return null;
+/* ===================== LISTA DE PRESENTES (cartoes) ===================== */
+function listaCard(item,isDiaper){
+  const t=!isDiaper&&giftTaken(item);
+  const nome=isDiaper?`Fralda ${item.name} — Tam. ${item.size}`:item.name;
+  return `<div class="item-card ${t?'riscado':''}" data-lista-card="${item.id}">
+    ${t?'<span class="selo">Reservado</span>':''}
+    <div class="top"><img src="${esc(item.imageUrl)}" alt=""><span class="nome-item">${esc(nome)}</span></div>
+    ${t?`<span class="fita">${esc(purchased[item.id])} vai dar 💙</span>`
+       :`<div class="item-actions"><button class="btn btn-primary btn-sm" data-reserve="${item.id}">Vou dar esse!</button><a class="loja-link" href="${esc(item.externalUrl)}" target="_blank" rel="noopener noreferrer">ver na loja ↗</a></div>`}
+  </div>`;
 }
-function renderLista(){
-  const sel=document.getElementById('listaItem'); if(!sel) return;
-  const prev=sel.value;
-  let html='<option value="" disabled selected>Escolha o presente...</option>';
-  html+='<optgroup label="Fraldas (sempre disponíveis)">'+DIAPERS.map(d=>`<option value="${d.id}">Fralda ${esc(d.name)} — Tam. ${esc(d.size)}</option>`).join('')+'</optgroup>';
-  GIFT_CATEGORIES.forEach(c=>{
-    const items=GIFTS.filter(g=>g.category===c.key&&!purchased[g.id]);
-    if(items.length) html+=`<optgroup label="${esc(c.key)}">`+items.map(g=>`<option value="${g.id}">${esc(g.name)}</option>`).join('')+'</optgroup>';
-  });
-  sel.innerHTML=html;
-  if(prev&&sel.querySelector(`option[value="${prev}"]`)) sel.value=prev;
-  const ul=document.getElementById('listaReservas');
-  const rows=purchaseRows.filter(r=>itemLabel(r.item_id));
-  ul.innerHTML = rows.length
-    ? rows.map(r=>`<li><span class="quem">${esc(r.guest_name)}</span> vai presentear <span class="oque">${esc(itemLabel(r.item_id))}</span> 💙</li>`).join('')
-    : '<li class="vazio">Ainda não há reservas — seja o primeiro! 💙</li>';
+function renderListaPage(){
+  const grid=document.getElementById('listaGrid'); if(!grid) return;
+  const cards=[...GIFTS.map(g=>listaCard(g,false)),...DIAPERS.map(d=>listaCard(d,true))];
+  grid.innerHTML=cards.join('');
+}
+function renderListaPreview(){
+  const el=document.getElementById('listaPreview'); if(!el) return;
+  el.innerHTML=GIFTS.slice(0,6).map(g=>listaCard(g,false)).join('');
 }
 function initLista(){
-  const form=document.getElementById('listaForm'); if(!form) return;
-  form.addEventListener('submit',async e=>{
-    e.preventDefault();
-    const sel=document.getElementById('listaItem'), nome=document.getElementById('listaNome');
-    const errEl=document.getElementById('listaErro');
-    const id=sel.value, name=nome.value.trim();
-    errEl.hidden=true;
-    if(!id){ errEl.textContent='Escolha um presente da lista.'; errEl.hidden=false; return; }
-    if(!name){ errEl.textContent='Digite seu nome para reservar.'; errEl.hidden=false; nome.focus(); return; }
-    const btn=form.querySelector('button[type=submit]');
-    btn.disabled=true; btn.textContent='Reservando...';
-    const isDiaper=!!DIAPERS.find(d=>d.id===id);
-    const result=await registerPurchase(isDiaper? id+'#'+Date.now() : id, name);
-    btn.disabled=false; btn.textContent='Reservar';
-    if(result==='conflict'){ await loadPurchases(); rerender(); toast('Ops! Alguém acabou de reservar esse presente 💙'); return; }
-    if(result==='error'){ errEl.textContent='Não foi possível reservar agora. Tente de novo em instantes.'; errEl.hidden=false; return; }
-    await loadPurchases();
-    nome.value=''; sel.value='';
-    rerender();
-    toast(`Obrigado, ${name}! Presente reservado com sucesso 💙`);
+  document.addEventListener('click',e=>{
+    const b=e.target.closest('[data-reserve]');
+    if(b&&!b.disabled) openReserve(b.dataset.reserve);
   });
 }
 /* ===================== REVEAL ===================== */
@@ -769,7 +806,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     else a.addEventListener('click',ev=>{ ev.preventDefault(); toast('Esse link ainda vai ser divulgado 💙'); });
   });
   if(typeof window.initPage==='function') window.initPage();
-  initLista(); onRerender(renderLista);
+  initLista(); onRerender(renderListaPage); onRerender(renderListaPreview);
   observeReveal();
   loadPurchases().then(()=>rerender());
 });
