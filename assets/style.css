@@ -291,3 +291,4 @@ svg{display:block}
 #listaBusca{font:inherit;font-size:16px;padding:12px 18px;border:1px solid var(--beige);border-radius:999px;background:rgba(255,255,255,.75);color:var(--brown-ink);min-height:48px;width:100%;max-width:440px;margin:0 auto}
 #listaBusca:focus{outline:2px solid var(--blue-baby);border-color:var(--blue-gray)}
 .lista-vazia{grid-column:1/-1;text-align:center;color:var(--brown-soft);padding:30px 0}
+.item-card.riscado .top{padding-right:64px}
