@@ -379,15 +379,6 @@ const GIFTS = [
   "externalUrl": "https://www.mercadolivre.com.br/ruido-bebe-aparelho-com-barulho-de-dormir-ambiente-do-utero-branco-marca-spitfire/p/MLB74748179?pdp_filters=item_id:MLB7070191382#reviews"
  },
  {
-  "id": "umidificador-fisher-price-ultrassonico",
-  "name": "Umidificador Fisher-Price Ultrassônico",
-  "category": "Quarto",
-  "description": "Bivolt, para o quarto.",
-  "price": null,
-  "imageUrl": "assets/img/cat-quarto.png",
-  "externalUrl": "https://www.amazon.com.br/Umidificador-Fisher-Ultrass%C3%B4nico-HC115-Bivolt/dp/B07HR1MZQP?pf_rd_r=6J16J52YZVD9YTJC3VNZ&pf_rd_p=a43a02c5-fe2d-4a34-af71-7d62fff70488&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&ascsubtag=srctok-46b4ae490fb1a9c7&btn_type=ss&btn_ref=srctok-7896fc9d532930ca&linkCode=sl2&tag=descontinhojhenni-20&linkId=d23dee9400fc9a90f96cb87e2c1076d8&ref_=as_li_ss_tl"
- },
- {
   "id": "baba-eletronica-com-visao-noturna",
   "name": "Babá Eletrônica com Visão Noturna",
   "category": "Quarto",
@@ -431,24 +422,6 @@ const GIFTS = [
   "price": null,
   "imageUrl": "assets/img/cat-outros.png",
   "externalUrl": "https://www.mercadolivre.com.br/carrossel-de-atividades-brinquedo-movimento-interativo-buba/up/MLBU3522522236?pdp_filters=item_id%3AMLB4275609679&matt_event_ts=1788131733801&matt_d2id=ec70b00c-1ba9-459e-9b68-cb30016450c8&matt_tracing_id=06cb7f4b-5b67-4e3b-b108-cff4f765cfac#polycard_client=recommendations_home_affiliate-profile&wid=MLB4275609679&sid=recos&reco_backend=item_decorator&reco_client=home_affiliate-profile&matt_tool_id=76718861&reco_item_pos=0&source=affiliate-profile&reco_backend_type=function&reco_id=5c09480f-c192-4657-9139-058b9bdefb07&tracking_id=b85178c1-ca7f-46ab-a9dd-e03a585766ea&c_id=/home/card-featured/element&c_uid=43a969ef-bad5-429f-a0f5-fcf52382e077"
- },
- {
-  "id": "brinquedo-macaco-fisher-price",
-  "name": "Brinquedo Macaco Fisher-Price",
-  "category": "Outros",
-  "description": "Primeiros brinquedos.",
-  "price": null,
-  "imageUrl": "assets/img/cat-outros.png",
-  "externalUrl": "https://www.amazon.com.br/dp/B07FK31DGB?tag=preciosamaternidade-20&linkCode=ogi&th=1&ascsubtag=srctok-4329d824673c5b4b&btn_type=ss&btn_ref=srctok-4329d824673c5b4b"
- },
- {
-  "id": "brinquedo-buba-zoo-pop-up",
-  "name": "Brinquedo Buba Zoo Pop-up",
-  "category": "Outros",
-  "description": "Estimula a coordenação.",
-  "price": null,
-  "imageUrl": "assets/img/cat-outros.png",
-  "externalUrl": "https://www.amazon.com.br/BUBA-17876-Pop-Up-Buba-Zoo/dp/B0CRZDD7MP/ref=dp_fod_d_sccl_3/142-7024450-8854860?pd_rd_w=fvzH5&content-id=amzn1.sym.4f53009d-6d67-4b5d-99e2-f94097efb59f&pf_rd_p=4f53009d-6d67-4b5d-99e2-f94097efb59f&pf_rd_r=01DSS5CE90140DH52GZT&pd_rd_wg=TcQ6f&pd_rd_r=09c4176d-a318-448a-a5e7-34e66812a0b7&pd_rd_i=B0CRZDD7MP&psc=1"
  },
  {
   "id": "garrafa-termica-buba",
