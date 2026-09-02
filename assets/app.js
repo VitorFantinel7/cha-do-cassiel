@@ -868,13 +868,15 @@ const SUPABASE = {
 function sbHeaders(){ return { apikey: SUPABASE.key, Authorization: 'Bearer '+SUPABASE.key, 'Content-Type': 'application/json' }; }
 // item_id -> nome de quem comprou (presentes). Fraldas nunca bloqueiam.
 let purchased = {};
+let purchaseRows = [];
 async function loadPurchases(){
   try{
     const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),7000);
-    const res=await fetch(SUPABASE.url+'?select=item_id,guest_name',{headers:sbHeaders(),signal:ctl.signal});
+    const res=await fetch(SUPABASE.url+'?select=item_id,guest_name,created_at&order=created_at.asc',{headers:sbHeaders(),signal:ctl.signal});
     clearTimeout(t);
     if(!res.ok) return;
     const rows=await res.json();
+    purchaseRows=rows;
     purchased={};
     rows.forEach(r=>{ if(!r.item_id.includes('#')) purchased[r.item_id]=r.guest_name; });
   }catch(e){ /* sem banco, site segue sem bloqueio */ }
@@ -898,7 +900,7 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;'
 function page(){ return document.body.dataset.page||'inicio'; }
 
 /* ===================== LAYOUT COMPARTILHADO ===================== */
-const NAV=[['inicio','index.html','Início'],['fraldas','fraldas.html','Fraldas'],['presentes','presentes.html','Presentes'],['sobre','sobre.html','Sobre o chá']];
+const NAV=[['inicio','index.html','Início'],['lista','index.html#lista','Lista de presentes'],['fraldas','fraldas.html','Fraldas'],['presentes','presentes.html','Presentes'],['sobre','sobre.html','Sobre o chá']];
 const ICON_GIFT='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>';
 
 function renderHeader(){
@@ -935,66 +937,7 @@ function renderFooter(){
 }
 
 function renderModal(){
-  document.body.insertAdjacentHTML('beforeend',`
-  <div class="modal-overlay" id="modal">
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <button class="modal-close" id="modalClose" aria-label="Fechar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-      <div id="modalForm">
-        <h3 id="modalTitle">Que carinho! 💙</h3>
-        <p class="modal-product" id="modalProduct"></p>
-        <p class="modal-text">Deixe seu nome registrado para a família saber do seu carinho — em seguida você vai direto para a loja.</p>
-        <form class="modal-form" id="reserveForm" novalidate>
-          <label for="guestName">Seu nome</label>
-          <input id="guestName" type="text" placeholder="Digite seu nome" autocomplete="name" aria-required="true">
-          <p class="form-error" id="formError" role="alert" hidden></p>
-          <div class="modal-actions">
-            <button type="button" class="btn btn-secondary" id="modalCancel">Voltar</button>
-            <button type="submit" class="btn btn-primary">Confirmar e ir para a loja</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="toast" id="toast" role="status"></div>`);
-  const modal=$('#modal'), nameInput=$('#guestName'), err=$('#formError');
-  let current=null;
-  window.openModal=function(id,type){
-    current={ item:(type==='diaper'?DIAPERS:GIFTS).find(x=>x.id===id), type };
-    if(!current.item) return;
-    $('#modalProduct').textContent=current.item.name+(current.item.size?' — Tamanho '+current.item.size:'');
-    $('#modalForm').hidden=false;
-    nameInput.value=''; err.hidden=true;
-    modal.classList.add('open'); document.body.style.overflow='hidden';
-    setTimeout(()=>nameInput.focus(),60);
-  };
-  function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; current=null; }
-  $('#modalClose').addEventListener('click',closeModal);
-  $('#modalCancel').addEventListener('click',closeModal);
-  modal.addEventListener('mousedown',e=>{ if(e.target===modal) closeModal(); });
-  window.addEventListener('keydown',e=>{ if(e.key==='Escape'&&modal.classList.contains('open')) closeModal(); });
-  $('#reserveForm').addEventListener('submit',async e=>{
-    e.preventDefault();
-    const name=nameInput.value.trim();
-    if(!name){ err.textContent='Por favor, digite seu nome para continuar.'; err.hidden=false; nameInput.focus(); return; }
-    err.hidden=true;
-    const {item,type}=current;
-    const submitBtn=e.target.querySelector('button[type=submit]');
-    submitBtn.disabled=true; submitBtn.textContent='Registrando...';
-    const itemId = type==='diaper' ? item.id+'#'+Date.now() : item.id;
-    const result = await registerPurchase(itemId,name);
-    submitBtn.disabled=false; submitBtn.textContent='Confirmar e ir para a loja';
-    if(result==='conflict'){
-      await loadPurchases(); rerender();
-      closeModal();
-      toast('Ops! Outra pessoa acabou de escolher esse presente 💙');
-      return;
-    }
-    if(type!=='diaper' && result==='ok') purchased[item.id]=name;
-    if(item.externalUrl) window.open(item.externalUrl,'_blank','noopener,noreferrer');
-    closeModal();
-    toast(`Obrigado, ${name}! Abrimos a loja em uma nova aba 💙`);
-    rerender();
-  });
+  document.body.insertAdjacentHTML('beforeend','<div class="toast" id="toast" role="status"></div>');
 }
 let toastTimer;
 function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),4000); }
@@ -1009,7 +952,7 @@ function miniDiaper(d){
   return `<div class="mini-card">
     <div class="thumb"><img src="${esc(d.imageUrl)}" alt=""></div>
     <span class="name">${esc(d.name)}<br>Tamanho ${esc(d.size)}</span>
-    <button class="btn btn-primary btn-sm" data-choose="${d.id}" data-type="diaper">Quero presentear</button>
+    <a class="btn btn-primary btn-sm" href="${esc(d.externalUrl)}" target="_blank" rel="noopener noreferrer">Quero presentear</a>
   </div>`;
 }
 function miniGift(g){
@@ -1017,7 +960,7 @@ function miniGift(g){
   return `<div class="mini-card ${t?'taken':''}">
     <div class="thumb"><img src="${esc(g.imageUrl)}" alt=""></div>
     <span class="name">${esc(g.name)}</span>
-    <button class="btn btn-primary btn-sm" data-choose="${g.id}" data-type="gift" ${t?'disabled':''}>${t?'Comprado 💙':'Quero presentear'}</button>
+    ${t?'<button class="btn btn-primary btn-sm" disabled>Comprado 💙</button>':`<a class="btn btn-primary btn-sm" href="${esc(g.externalUrl)}" target="_blank" rel="noopener noreferrer">Quero presentear</a>`}
   </div>`;
 }
 function diaperCard(d){
@@ -1028,7 +971,7 @@ function diaperCard(d){
       <h3>${esc(d.name)}</h3>
       <p class="product-brand">${esc(d.brand)}</p>
       <div class="spacer"></div>
-      <button class="btn btn-primary w-full" data-choose="${d.id}" data-type="diaper">Quero presentear</button>
+      <a class="btn btn-primary w-full" href="${esc(d.externalUrl)}" target="_blank" rel="noopener noreferrer">Quero presentear</a>
     </div></article>`;
 }
 function giftCard(g){
@@ -1040,11 +983,58 @@ function giftCard(g){
       <h3>${esc(g.name)}</h3>
       <p class="product-desc">${esc(g.description)}</p>
       <div class="spacer"></div>
-      ${t?'<span class="status taken">Comprado 💙</span>':''}
-      <button class="btn btn-primary w-full" data-choose="${g.id}" data-type="gift" ${t?'disabled':''}>${t?'Comprado':'Quero presentear'}</button>
+      ${t?'<span class="status taken">Comprado 💙</span><button class="btn btn-primary w-full" disabled>Comprado</button>':`<a class="btn btn-primary w-full" href="${esc(g.externalUrl)}" target="_blank" rel="noopener noreferrer">Quero presentear</a>`}
     </div></article>`;
 }
 
+
+/* ===================== LISTA DE PRESENTES (reservas) ===================== */
+function itemLabel(rawId){
+  const id=rawId.split('#')[0];
+  const d=DIAPERS.find(x=>x.id===id); if(d) return `Fralda ${d.name} (${d.size})`;
+  const g=GIFTS.find(x=>x.id===id); if(g) return g.name;
+  return null;
+}
+function renderLista(){
+  const sel=document.getElementById('listaItem'); if(!sel) return;
+  const prev=sel.value;
+  let html='<option value="" disabled selected>Escolha o presente...</option>';
+  html+='<optgroup label="Fraldas (sempre disponíveis)">'+DIAPERS.map(d=>`<option value="${d.id}">Fralda ${esc(d.name)} — Tam. ${esc(d.size)}</option>`).join('')+'</optgroup>';
+  GIFT_CATEGORIES.forEach(c=>{
+    const items=GIFTS.filter(g=>g.category===c.key&&!purchased[g.id]);
+    if(items.length) html+=`<optgroup label="${esc(c.key)}">`+items.map(g=>`<option value="${g.id}">${esc(g.name)}</option>`).join('')+'</optgroup>';
+  });
+  sel.innerHTML=html;
+  if(prev&&sel.querySelector(`option[value="${prev}"]`)) sel.value=prev;
+  const ul=document.getElementById('listaReservas');
+  const rows=purchaseRows.filter(r=>itemLabel(r.item_id));
+  ul.innerHTML = rows.length
+    ? rows.map(r=>`<li><span class="quem">${esc(r.guest_name)}</span> vai presentear <span class="oque">${esc(itemLabel(r.item_id))}</span> 💙</li>`).join('')
+    : '<li class="vazio">Ainda não há reservas — seja o primeiro! 💙</li>';
+}
+function initLista(){
+  const form=document.getElementById('listaForm'); if(!form) return;
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const sel=document.getElementById('listaItem'), nome=document.getElementById('listaNome');
+    const errEl=document.getElementById('listaErro');
+    const id=sel.value, name=nome.value.trim();
+    errEl.hidden=true;
+    if(!id){ errEl.textContent='Escolha um presente da lista.'; errEl.hidden=false; return; }
+    if(!name){ errEl.textContent='Digite seu nome para reservar.'; errEl.hidden=false; nome.focus(); return; }
+    const btn=form.querySelector('button[type=submit]');
+    btn.disabled=true; btn.textContent='Reservando...';
+    const isDiaper=!!DIAPERS.find(d=>d.id===id);
+    const result=await registerPurchase(isDiaper? id+'#'+Date.now() : id, name);
+    btn.disabled=false; btn.textContent='Reservar';
+    if(result==='conflict'){ await loadPurchases(); rerender(); toast('Ops! Alguém acabou de reservar esse presente 💙'); return; }
+    if(result==='error'){ errEl.textContent='Não foi possível reservar agora. Tente de novo em instantes.'; errEl.hidden=false; return; }
+    await loadPurchases();
+    nome.value=''; sel.value='';
+    rerender();
+    toast(`Obrigado, ${name}! Presente reservado com sucesso 💙`);
+  });
+}
 /* ===================== REVEAL ===================== */
 const io='IntersectionObserver' in window ? new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.1}) : null;
 function observeReveal(){ $$('.reveal:not(.in)').forEach(el=>{ io?io.observe(el):el.classList.add('in'); }); }
@@ -1052,15 +1042,13 @@ function observeReveal(){ $$('.reveal:not(.in)').forEach(el=>{ io?io.observe(el)
 /* ===================== BOOT ===================== */
 document.addEventListener('DOMContentLoaded',()=>{
   renderHeader(); renderFooter(); renderModal();
-  document.addEventListener('click',e=>{
-    const ch=e.target.closest('[data-choose]'); if(ch&&!ch.disabled){ e.preventDefault(); openModal(ch.dataset.choose, ch.dataset.type); }
-  });
   $$('[data-external]').forEach(a=>{
     const key=a.dataset.external, url=EXTERNAL_LINKS[key];
     if(url){ a.href=url; a.target='_blank'; a.rel='noopener noreferrer'; }
     else a.addEventListener('click',ev=>{ ev.preventDefault(); toast('Esse link ainda vai ser divulgado 💙'); });
   });
   if(typeof window.initPage==='function') window.initPage();
+  initLista(); onRerender(renderLista);
   observeReveal();
   loadPurchases().then(()=>rerender());
 });

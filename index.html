@@ -63,6 +63,22 @@
     </div>
   </section>
 
+
+  <!-- LISTA DE PRESENTES (reserva) -->
+  <section class="panel reveal" id="lista" aria-labelledby="h-lista">
+    <div class="section-heading" style="margin-bottom:20px">
+      <h2 id="h-lista">Lista de Presentes</h2>
+      <p>Vai presentear o Cassiel? Reserve aqui o seu presente — assim ninguém compra repetido e a família sabe do seu carinho.</p>
+    </div>
+    <form class="lista-form" id="listaForm" novalidate>
+      <select id="listaItem" aria-label="Presente" required></select>
+      <input id="listaNome" type="text" placeholder="Seu nome" autocomplete="name" aria-label="Seu nome" required>
+      <button type="submit" class="btn btn-primary">Reservar</button>
+    </form>
+    <p class="form-error" id="listaErro" role="alert" hidden></p>
+    <ul class="lista-reservas" id="listaReservas"></ul>
+  </section>
+
   <!-- FRALDAS + PRESENTES -->
   <div class="home-two">
     <section class="panel reveal" aria-labelledby="h-fraldas">
