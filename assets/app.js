@@ -21,7 +21,7 @@ const DIAPERS = [
   "size": "RN",
   "brand": "Ou outra marca de sua preferência",
   "quantity": 5,
-  "imageUrl": "assets/img/diaper.png",
+  "imageUrl": "assets/img/produtos/fralda-pampers-premium-rn.webp",
   "externalUrl": "https://www.mercadolivre.com.br/fraldas-recem-nascido-premium-care-tamanho-rn-com-20-unidades-pampers/p/MLB17336068?pdp_filters=item_id:MLB4585115773#intervention_type=MARKET&position=1&search_layout=grid&type=cart_intervention&tracking_id=6eb87127-27aa-4cc3-94fb-4ef72bc6a0b4"
  },
  {
@@ -30,7 +30,7 @@ const DIAPERS = [
   "size": "RN",
   "brand": "Ou outra marca de sua preferência",
   "quantity": 5,
-  "imageUrl": "assets/img/diaper.png",
+  "imageUrl": "assets/img/produtos/fralda-pompom-rn.webp",
   "externalUrl": "https://www.mercadolivre.com.br/fralda-pom-pom-protek-protecao-de-mae-rn-para-recem-nascido-pacote-com-18-fraldas/p/MLB17335763#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=34&type=product&tracking_id=59671180-5e89-4d02-b4dd-b5d946ca6e03&wid=MLB6326208296&sid=search"
  },
  {
@@ -39,7 +39,7 @@ const DIAPERS = [
   "size": "RN",
   "brand": "Ou outra marca de sua preferência",
   "quantity": 5,
-  "imageUrl": "assets/img/diaper.png",
+  "imageUrl": "assets/img/produtos/fralda-huggies-rn.webp",
   "externalUrl": "https://www.mercadolivre.com.br/huggies-fralda-descartavel-premium-natural-care-rn-34-unidad/up/MLBU3725829562#polycard_client=search-desktop&float_highlight=last_units&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=50&type=product&tracking_id=59671180-5e89-4d02-b4dd-b5d946ca6e03&wid=MLB4413777277&sid=search"
  },
  {
@@ -48,7 +48,7 @@ const DIAPERS = [
   "size": "RN",
   "brand": "Ou outra marca de sua preferência",
   "quantity": 5,
-  "imageUrl": "assets/img/diaper.png",
+  "imageUrl": "assets/img/produtos/fralda-turma-monica-rn.webp",
   "externalUrl": "https://www.mercadolivre.com.br/fralda-descartavel-turma-da-monica-baby-recem-nascido-rn-pacote-36-unidades/p/MLB18392643#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=1&type=product&tracking_id=375434e8-f463-4638-bb54-ea536ad3028e&wid=MLB3967950509&sid=search"
  },
  {
@@ -57,7 +57,7 @@ const DIAPERS = [
   "size": "RN ao P",
   "brand": "Ou outra marca de sua preferência",
   "quantity": 5,
-  "imageUrl": "assets/img/diaper.png",
+  "imageUrl": "assets/img/produtos/fralda-personal-rnp.webp",
   "externalUrl": "https://www.mercadolivre.com.br/fraldas-personal-baby-premium-protection-recemnascido/up/MLBU3517989695#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=6&type=product&tracking_id=d6c77032-9ce3-4933-998b-4a9eefc55a5c&wid=MLB5862834736&sid=search"
  },
  {
@@ -66,7 +66,7 @@ const DIAPERS = [
   "size": "RN",
   "brand": "Ou outra marca de sua preferência",
   "quantity": 5,
-  "imageUrl": "assets/img/diaper.png",
+  "imageUrl": "assets/img/produtos/fralda-mili-rn.webp",
   "externalUrl": "https://www.mercadolivre.com.br/fralda-mili-descartavel-lovecare-rn-c18-unidades/p/MLB19939777?pdp_filters=shipping:mercadoenvios%7Cseller_id:345605524#intervention_type=seller&position=1&search_layout=grid&type=cart_intervention&tracking_id=914c7fad-b392-46ee-90cf-fcf1202d74f6"
  },
  {
@@ -75,7 +75,7 @@ const DIAPERS = [
   "size": "P",
   "brand": "Ou outra marca de sua preferência",
   "quantity": 5,
-  "imageUrl": "assets/img/diaper.png",
+  "imageUrl": "assets/img/produtos/fralda-pampers-confort-p.webp",
   "externalUrl": "https://www.mercadolivre.com.br/p/MLB17335903?pdp_filters=item_id%3AMLB1806456379&sid=cart#polycard_client=cart_list&wid=MLB1806456379&sid=cart"
  },
  {
@@ -84,7 +84,7 @@ const DIAPERS = [
   "size": "M",
   "brand": "Ou outra marca de sua preferência",
   "quantity": 5,
-  "imageUrl": "assets/img/diaper.png",
+  "imageUrl": "assets/img/produtos/fralda-pampers-supersec-m.webp",
   "externalUrl": "https://www.mercadolivre.com.br/fralda-descartavel-pampers-supersequinha-super-m-68-unidades/p/MLB57445082#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=6&type=product&tracking_id=455e5423-1963-4d95-ab79-2ccd7d43088b&wid=MLB6802410504&sid=search"
  },
  {
@@ -93,7 +93,7 @@ const DIAPERS = [
   "size": "M",
   "brand": "Ou outra marca de sua preferência",
   "quantity": 5,
-  "imageUrl": "assets/img/diaper.png",
+  "imageUrl": "assets/img/produtos/fralda-mammypoko-m.webp",
   "externalUrl": "https://www.mercadolivre.com.br/fralda-calca-mamy-poko-superprotecao-jumbo-m-34-unidades/p/MLB44013391#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=12&type=product&tracking_id=455e5423-1963-4d95-ab79-2ccd7d43088b&wid=MLB3919800849&sid=search"
  }
 ];
