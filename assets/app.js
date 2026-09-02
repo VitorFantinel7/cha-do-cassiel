@@ -865,8 +865,7 @@ const STORAGE_KEY = 'cassiel-reservations';
 function loadReservations(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); }catch(e){ return {}; } }
 function saveReservations(d){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); return true; }catch(e){ return false; } }
 let reservations = loadReservations();
-function diaperAvail(d){ const claims=(reservations[d.id]&&reservations[d.id].claims)||[]; const available=Math.max(d.quantity-claims.length,0); return {available,isFull:available<=0}; }
-function giftTaken(g){ const r=reservations[g.id]; return !!(r&&(r.status==='reservado'||r.status==='escolhido')); }
+function addClaim(id,name){ const r=reservations[id]||{claims:[]}; if(!Array.isArray(r.claims)) r.claims=[]; r.claims.push({guestName:name,timestamp:Date.now()}); reservations[id]=r; }
 
 /* ===================== HELPERS ===================== */
 const $=(s,el=document)=>el.querySelector(s);
@@ -919,25 +918,16 @@ function renderModal(){
       <div id="modalForm">
         <h3 id="modalTitle">Que carinho! 💙</h3>
         <p class="modal-product" id="modalProduct"></p>
-        <p class="modal-text">Queremos registrar que esse presente foi escolhido por você. Assim evitamos que outra pessoa escolha o mesmo item.</p>
+        <p class="modal-text">Deixe seu nome registrado para a família saber do seu carinho — em seguida você vai direto para a loja.</p>
         <form class="modal-form" id="reserveForm" novalidate>
           <label for="guestName">Seu nome</label>
           <input id="guestName" type="text" placeholder="Digite seu nome" autocomplete="name" aria-required="true">
           <p class="form-error" id="formError" role="alert" hidden></p>
           <div class="modal-actions">
             <button type="button" class="btn btn-secondary" id="modalCancel">Voltar</button>
-            <button type="submit" class="btn btn-primary">Confirmar</button>
+            <button type="submit" class="btn btn-primary">Confirmar e ir para a loja</button>
           </div>
         </form>
-      </div>
-      <div id="modalSuccess" class="modal-success" hidden>
-        <div class="big">🧸</div>
-        <h3>Presente registrado!</h3>
-        <p class="modal-text" style="margin-top:8px" id="successText"></p>
-        <div class="modal-actions" style="justify-content:center">
-          <a class="btn btn-secondary" id="storeLink" href="#" target="_blank" rel="noopener noreferrer" hidden>Ir para a loja</a>
-          <button type="button" class="btn btn-primary" id="successClose">Fechar</button>
-        </div>
       </div>
     </div>
   </div>
@@ -948,7 +938,7 @@ function renderModal(){
     current={ item:(type==='diaper'?DIAPERS:GIFTS).find(x=>x.id===id), type };
     if(!current.item) return;
     $('#modalProduct').textContent=current.item.name+(current.item.size?' — Tamanho '+current.item.size:'');
-    $('#modalForm').hidden=false; $('#modalSuccess').hidden=true;
+    $('#modalForm').hidden=false;
     nameInput.value=''; err.hidden=true;
     modal.classList.add('open'); document.body.style.overflow='hidden';
     setTimeout(()=>nameInput.focus(),60);
@@ -956,7 +946,6 @@ function renderModal(){
   function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; current=null; }
   $('#modalClose').addEventListener('click',closeModal);
   $('#modalCancel').addEventListener('click',closeModal);
-  $('#successClose').addEventListener('click',closeModal);
   modal.addEventListener('mousedown',e=>{ if(e.target===modal) closeModal(); });
   window.addEventListener('keydown',e=>{ if(e.key==='Escape'&&modal.classList.contains('open')) closeModal(); });
   $('#reserveForm').addEventListener('submit',e=>{
@@ -965,19 +954,12 @@ function renderModal(){
     if(!name){ err.textContent='Por favor, digite seu nome para continuar.'; err.hidden=false; nameInput.focus(); return; }
     err.hidden=true;
     reservations=loadReservations();
-    const {item,type}=current, now=Date.now();
-    if(type==='diaper'){
-      if(diaperAvail(item).isFull){ toast('Ops, esse tamanho acabou de esgotar.'); closeModal(); rerender(); return; }
-      const r=reservations[item.id]||{claims:[]}; r.claims.push({guestName:name,timestamp:now}); reservations[item.id]=r;
-    } else {
-      if(giftTaken(item)){ toast('Ops, alguém acabou de escolher esse presente.'); closeModal(); rerender(); return; }
-      reservations[item.id]={status:'reservado',guestName:name,timestamp:now};
-    }
-    if(!saveReservations(reservations)){ toast('Não foi possível salvar. Tente novamente.'); return; }
-    $('#modalForm').hidden=true; $('#modalSuccess').hidden=false;
-    $('#successText').textContent=`Obrigado, ${name}! Registramos "${item.name}${item.size?' '+item.size:''}" para você. É só levar no dia do chá 💙`;
-    const store=$('#storeLink'); if(item.externalUrl){ store.href=item.externalUrl; store.hidden=false; } else store.hidden=true;
-    rerender();
+    const {item}=current;
+    addClaim(item.id,name);
+    saveReservations(reservations);
+    if(item.externalUrl) window.open(item.externalUrl,'_blank','noopener,noreferrer');
+    closeModal();
+    toast(`Obrigado, ${name}! Abrimos a loja em uma nova aba 💙`);
   });
 }
 let toastTimer;
@@ -990,49 +972,39 @@ function rerender(){ rerenderFns.forEach(f=>f()); }
 
 /* ===================== COMPONENTES DE PRODUTO ===================== */
 function miniDiaper(d){
-  const a=diaperAvail(d);
   return `<div class="mini-card">
     <div class="thumb"><img src="${esc(d.imageUrl)}" alt=""></div>
     <span class="name">${esc(d.name)}<br>Tamanho ${esc(d.size)}</span>
-    <span class="tag ${a.isFull?'taken':''}">${a.isFull?'Esgotado':a.available+' disponíveis'}</span>
-    <button class="btn btn-primary btn-sm" data-choose="${d.id}" data-type="diaper" ${a.isFull?'disabled':''}>Quero presentear</button>
+    <button class="btn btn-primary btn-sm" data-choose="${d.id}" data-type="diaper">Quero presentear</button>
   </div>`;
 }
 function miniGift(g){
-  const t=giftTaken(g);
   return `<div class="mini-card">
     <div class="thumb"><img src="${esc(g.imageUrl)}" alt=""></div>
     <span class="name">${esc(g.name)}</span>
-    ${g.price?`<span class="price">${esc(g.price)}</span>`:''}
-    <span class="tag ${t?'taken':''}">${t?'Escolhido':'Disponível'}</span>
-    <button class="btn btn-primary btn-sm" data-choose="${g.id}" data-type="gift" ${t?'disabled':''}>${t?'Já escolhido':'Quero presentear'}</button>
+    <button class="btn btn-primary btn-sm" data-choose="${g.id}" data-type="gift">Quero presentear</button>
   </div>`;
 }
 function diaperCard(d){
-  const a=diaperAvail(d);
-  return `<article class="product-card reveal ${a.isFull?'taken':''}">
+  return `<article class="product-card reveal">
     <div class="product-media"><img src="${esc(d.imageUrl)}" alt=""></div>
     <div class="product-body">
       <span class="badge">Tamanho ${esc(d.size)}</span>
       <h3>${esc(d.name)}</h3>
       <p class="product-brand">${esc(d.brand)}</p>
       <div class="spacer"></div>
-      <span class="status ${a.isFull?'taken':''}">${a.isFull?'Já escolhemos todas! 💙':a.available+' de '+d.quantity+' disponíveis'}</span>
-      <button class="btn btn-primary w-full" data-choose="${d.id}" data-type="diaper" ${a.isFull?'disabled':''}>${a.isFull?'Esgotado':'Quero presentear'}</button>
+      <button class="btn btn-primary w-full" data-choose="${d.id}" data-type="diaper">Quero presentear</button>
     </div></article>`;
 }
 function giftCard(g){
-  const t=giftTaken(g);
-  return `<article class="product-card reveal ${t?'taken':''}">
+  return `<article class="product-card reveal">
     <div class="product-media"><img src="${esc(g.imageUrl)}" alt=""></div>
     <div class="product-body">
       <span class="badge soft">${esc(g.category)}</span>
       <h3>${esc(g.name)}</h3>
       <p class="product-desc">${esc(g.description)}</p>
-      ${g.price?`<p class="product-price">${esc(g.price)} <span class="price-note">(aprox.)</span></p>`:''}
       <div class="spacer"></div>
-      <span class="status ${t?'taken':''}">${t?'Já escolhido 💙':'Disponível'}</span>
-      <button class="btn btn-primary w-full" data-choose="${g.id}" data-type="gift" ${t?'disabled':''}>${t?'Já escolhido':'Quero presentear'}</button>
+      <button class="btn btn-primary w-full" data-choose="${g.id}" data-type="gift">Quero presentear</button>
     </div></article>`;
 }
 
