@@ -460,32 +460,59 @@ const GIFTS = [
   "externalUrl": "https://www.amazon.com.br/dp/B08JXP4NFR?tag=baby-split-20&th=1"
  },
  {
-  "id": "conjunto-3-pecas-cookies-rn-carters",
-  "name": "Conjunto 3 Peças Cookies RN (Carter’s)",
+  "id": "conjunto-cookies-carters",
+  "name": "Conjunto Cookies Carter’s (P ou M)",
   "category": "Roupinhas",
-  "description": "Conjunto longo cinza.",
+  "description": "Conjunto 3 peças.",
   "price": null,
-  "imageUrl": "assets/img/cat-roupinhas.png",
+  "imageUrl": "assets/img/produtos/conjunto-cookies.webp",
   "externalUrl": "https://www.riachuelo.com.br/conjunto-longo-bebe-3-pecas-cookies-cinza-carter-s-16300106_sku_sku?utm_source=awin&utm_id=1738645_&utm_campaign=affiliate&sv1=affiliate&sv_campaign_id=1738645&awc=86587_1788128442_904812b6e7ea03472497316eaa861af8",
   "featured": true
  },
  {
-  "id": "kit-5-bodies-manga-curta-rn",
-  "name": "Kit 5 Bodies Manga Curta RN (Carter’s)",
+  "id": "conjunto-tricot-azul-bebe",
+  "name": "Conjunto Azul-Bebê Tricot Manga Curta (M)",
   "category": "Roupinhas",
-  "description": "Bodies lisos brancos.",
+  "description": "Blusa polo + shorts.",
   "price": null,
-  "imageUrl": "assets/img/cat-roupinhas.png",
-  "externalUrl": "https://www.riachuelo.com.br/kit-body-bebe-5-pecas-manga-curta-lisos-branco-carter-s-14097524_sku_sku?utm_source=awin&utm_id=1738645_&utm_campaign=affiliate&sv1=affiliate&sv_campaign_id=1738645&awc=86587_1788128489_1bee71b2a7a068bb96fd5868194568c4"
+  "imageUrl": "assets/img/produtos/conjunto-tricot-azul.webp",
+  "externalUrl": "https://shopee.com.br/Conjunto-Tricot-Premium-Beb%C3%AA-Menino-Blusa-Polo-Manga-Curta-Shorts-Cl%C3%A1ssico-Elegante-i.1834008345.58261640717?extraParams=%7B%22display_model_id%22%3A239444000907%2C%22model_selection_logic%22%3Anull%7D"
  },
  {
-  "id": "macacao-urso-polar-3m-carters",
-  "name": "Macacão Urso Polar 3M (Carter’s)",
+  "id": "conjunto-praia-pinguim",
+  "name": "Conjunto Praia Pinguim (3-6 meses)",
   "category": "Roupinhas",
-  "description": "Com pezinho, azul.",
+  "description": "Com chapéu e proteção UV.",
   "price": null,
-  "imageUrl": "assets/img/cat-roupinhas.png",
-  "externalUrl": "https://www.riachuelo.com.br/macac-o-bebe-com-pezinho-urso-polar-azul-carter-s-16363370_sku_sku?utm_source=awin&utm_id=1738645_&utm_campaign=affiliate&sv1=affiliate&sv_campaign_id=1738645&awc=86587_1788128982_37440b773cff15ca22df9c0d56269dec"
+  "imageUrl": "assets/img/produtos/conjunto-praia-pinguim.webp",
+  "externalUrl": "https://produto.mercadolivre.com.br/MLB-876289471-conjunto-uv-infantil-proteco-solar-com-chapeu-beb-praia-_JM?attributes=COLOR_SECONDARY_COLOR%3AQXp1bC1jbGFybw%3D%3D%2CSIZE%3AMy02IE0%3D&picker=true&searchVariation=173759067239&matt_event_ts=1788129355760&matt_d2id=ec70b00c-1ba9-459e-9b68-cb30016450c8&matt_tracing_id=1ac0c84d-6a3b-4429-b8f8-23b2cc80ac94&quantity=1"
+ },
+ {
+  "id": "kit-3-macacoes-p",
+  "name": "Kit 3 Macacões (P)",
+  "category": "Roupinhas",
+  "description": "Trio de macacões.",
+  "price": null,
+  "imageUrl": "assets/img/produtos/kit-3-macacoes.webp",
+  "externalUrl": "https://shopee.com.br/product/1777221519/22094979416?credential_token=8wEwiDL7YDXiJxgFLkQVadts9V22zDRCh3CbHYjUJC&exp_group=rollout&gads_t_sig=gqRjZGVrxHCFomtpsTE0MjUxOnRzc19zZGtfa2V5omt20QACpGFsZ2_SAAAAZKNkZWvAomN0xEAAAAAMaaRlZwa4TmRr35EbRKe45opqqWzquDpxLoPl6a_nP90XlrFndAmj-Eti4LViLnnfxaArnW_92wfHWioVqmNpcGhlcnRleHTEmQAAAAyAIJcO36xaSplqMuncObuZADKBC_Wy0pKJOxF9zEXaFwshVx-SzWm4-exuLZYQqFWtNXcr02ilv2PPrwIBrp6YIK8a_l523dg2c5NhF2Z1la4fBKk36u43f6vrpNYSJsI0WA9IsaDd_guQR_cx_F9r7c82WCDvaQ0ad6hoxmHmrrN4UU4vuZQoVC49aMGz03Mvlz-u3g&mmp_pid=an_18319270113&uls_trackid=56h1a4pd003m&utm_campaign=id_1f82e4cd05589b62&utm_content=Enviopromos----&utm_medium=affiliates&utm_source=an_18319270113&utm_term=fgcfe4uwqif1"
+ },
+ {
+  "id": "kit-3-macaquinhos-neutro-m",
+  "name": "Kit 3 Macaquinhos Neutro (M)",
+  "category": "Roupinhas",
+  "description": "Tons neutros.",
+  "price": null,
+  "imageUrl": "assets/img/produtos/kit-3-macaquinhos.webp",
+  "externalUrl": "https://shopee.com.br/product/1206607146/22099049921?credential_token=8wEwiDL7YDXiJxyxM7BEURpTrGq51TcHXzAbJfMHYA&exp_group=rollout&gads_t_sig=gqRjZGVrxHCFomtpsTE0MjUxOnRzc19zZGtfa2V5omt20QACpGFsZ2_SAAAAZKNkZWvAomN0xEAAAAAMaaRlZwa4TmRr35EbRKe45opqqWzquDpxLoPl6a_nP90XlrFndAmj-Eti4LViLnnfxaArnW_92wfHWioVqmNpcGhlcnRleHTEmQAAAAwoHXmk42_W1kYZj0_RryXu_fivmnnJEm7IHTgpVsXBfs5T9PhdK70nMGlMm2w8J4w0Nv85wqt4ZsymVoD5vjtldPPkRad0drCqJBm2u7UoDEzjWwxF0eZcTG-zidLBkEEna4DiJAGWLKNVh-voXadltYI26p0OXN4YkxWHocsIPoYi3Kzo6USNEIYElOg_oK2w7aSmdQ&mmp_pid=an_18319270113&uls_trackid=56h1dmeg00a5&utm_campaign=id_37357442c1bc4118&utm_content=Enviopromos----&utm_medium=affiliates&utm_source=an_18319270113&utm_term=fgci52unu64o"
+ },
+ {
+  "id": "kit-body-raposa-p",
+  "name": "Kit Body Raposa Manga Curta (P)",
+  "category": "Roupinhas",
+  "description": "Malha canelada de algodão.",
+  "price": null,
+  "imageUrl": "assets/img/produtos/kit-body-raposa.webp",
+  "externalUrl": "https://shopee.com.br/Kit-3-Body-Manga-Curta-Estampado-Liso-Roupa-de-Beb%C3%AA-Malha-Canelada-Algod%C3%A3o-Menino-Enxoval-i.477029210.23093967095?xptdk=db4123b9-5519-4b63-8508-2be0c35c475c"
  },
  {
   "id": "kit-3-cueiros",
@@ -493,89 +520,26 @@ const GIFTS = [
   "category": "Roupinhas",
   "description": "Cueiros macios.",
   "price": null,
-  "imageUrl": "assets/img/cat-roupinhas.png",
+  "imageUrl": "assets/img/produtos/kit-3-cueiros.webp",
   "externalUrl": "https://shopee.com.br/product/683335537/15694363553?credential_token=8wEwiDL7XpU6YKDja6LzdQBZKEPgsiAL68jPzTCK7Q&exp_group=rollout&gads_t_sig=gqRjZGVrxHCFomtpsTE0MjUxOnRzc19zZGtfa2V5omt20QACpGFsZ2_SAAAAZKNkZWvAomN0xEAAAAAMaaRlZwa4TmRr35EbRKe45opqqWzquDpxLoPl6a_nP90XlrFndAmj-Eti4LViLnnfxaArnW_92wfHWioVqmNpcGhlcnRleHTElwAAAAxDPfKl5srus_2hi4pu6InZBuFIVdcJlOKIAQLEPEN-nWEvnHP8w08EbrL473xs3C9IaqkwUjo2Zc9s7DiAZQyn9X1G-C-6J9BXlqml1JsAz-35fHJ_etdmDSH8bZavRhJR3L4BPG08R_y2hXFLPNLEQJ7K18gcRjV_voLMJlpkYrNN591PDOF7kZE0i3UFh3daDMA&mmp_pid=an_18319270113&uls_trackid=56h18s7c002q&utm_campaign=id_4b657974595cf519&utm_content=Enviopromos----&utm_medium=affiliates&utm_source=an_18319270113&utm_term=fgceey33szas"
  },
  {
-  "id": "saida-de-maternidade-dino",
-  "name": "Saída de Maternidade Dino",
+  "id": "saida-maternidade-azul-trico",
+  "name": "Saída Maternidade Azul-Bebê Tricô",
   "category": "Roupinhas",
-  "description": "Look da primeira foto.",
+  "description": "Conjunto completo em tricô.",
   "price": null,
-  "imageUrl": "assets/img/cat-roupinhas.png",
-  "externalUrl": "https://shopee.com.br/product/575397523/45901685352?exp_group=rollout&gads_t_sig=gqRjZGVrxHCFomtpsTE0MjUxOnRzc19zZGtfa2V5omt20QACpGFsZ2_SAAAAZKNkZWvAomN0xEAAAAAMaaRlZwa4TmRr35EbRKe45opqqWzquDpxLoPl6a_nP90XlrFndAmj-Eti4LViLnnfxaArnW_92wfHWioVqmNpcGhlcnRleHTElwAAAAxMErzTti-Wd1Abia4KYtbZdKPukHNcg3Dy9lhZXLY9EkLye8b31XUtdd1HeCE8bey3cEX9dztQoP-NrGR3wOxoMiP5yh32eW95SVYAWVt4PXTOS1ge7RhMHhUPOSplgXHE0MaGaTzncmyNboUQzkp99m4rPzqpdg3USXFQesosIO0M08DTT2e_5imhJvfPfff9N7k&mmp_pid=an_18364220059&uls_trackid=56h193v900a5&utm_campaign=id_bd7f4d1795035b10&utm_content=instagram-obrigadodonacegonha-stories-grupo-storyinstagram&utm_medium=affiliates&utm_source=an_18364220059&utm_term=fgcemaeugdhq"
- },
- {
-  "id": "conjunto-de-praia-com-protecao-uv",
-  "name": "Conjunto de Praia com Proteção UV",
-  "category": "Roupinhas",
-  "description": "Com chapéu, proteção solar.",
-  "price": null,
-  "imageUrl": "assets/img/cat-roupinhas.png",
-  "externalUrl": "https://produto.mercadolivre.com.br/MLB-876289471-conjunto-uv-infantil-proteco-solar-com-chapeu-beb-praia-_JM?attributes=COLOR_SECONDARY_COLOR%3AQXp1bC1jbGFybw%3D%3D%2CSIZE%3AMy02IE0%3D&picker=true&searchVariation=173759067239&matt_event_ts=1788129355760&matt_d2id=ec70b00c-1ba9-459e-9b68-cb30016450c8&matt_tracing_id=1ac0c84d-6a3b-4429-b8f8-23b2cc80ac94&quantity=1"
- },
- {
-  "id": "conjunto-3-macacoes-p",
-  "name": "Conjunto 3 Macacões (P)",
-  "category": "Roupinhas",
-  "description": "Trio de macacões.",
-  "price": null,
-  "imageUrl": "assets/img/cat-roupinhas.png",
-  "externalUrl": "https://shopee.com.br/product/1777221519/22094979416?credential_token=8wEwiDL7YDXiJxgFLkQVadts9V22zDRCh3CbHYjUJC&exp_group=rollout&gads_t_sig=gqRjZGVrxHCFomtpsTE0MjUxOnRzc19zZGtfa2V5omt20QACpGFsZ2_SAAAAZKNkZWvAomN0xEAAAAAMaaRlZwa4TmRr35EbRKe45opqqWzquDpxLoPl6a_nP90XlrFndAmj-Eti4LViLnnfxaArnW_92wfHWioVqmNpcGhlcnRleHTEmQAAAAyAIJcO36xaSplqMuncObuZADKBC_Wy0pKJOxF9zEXaFwshVx-SzWm4-exuLZYQqFWtNXcr02ilv2PPrwIBrp6YIK8a_l523dg2c5NhF2Z1la4fBKk36u43f6vrpNYSJsI0WA9IsaDd_guQR_cx_F9r7c82WCDvaQ0ad6hoxmHmrrN4UU4vuZQoVC49aMGz03Mvlz-u3g&mmp_pid=an_18319270113&uls_trackid=56h1a4pd003m&utm_campaign=id_1f82e4cd05589b62&utm_content=Enviopromos----&utm_medium=affiliates&utm_source=an_18319270113&utm_term=fgcfe4uwqif1"
- },
- {
-  "id": "kit-3-bodies-manga-curta-p",
-  "name": "Kit 3 Bodies Manga Curta (P) Raposa",
-  "category": "Roupinhas",
-  "description": "Malha canelada de algodão.",
-  "price": null,
-  "imageUrl": "assets/img/cat-roupinhas.png",
-  "externalUrl": "https://shopee.com.br/Kit-3-Body-Manga-Curta-Estampado-Liso-Roupa-de-Beb%C3%AA-Malha-Canelada-Algod%C3%A3o-Menino-Enxoval-i.477029210.23093967095?xptdk=db4123b9-5519-4b63-8508-2be0c35c475c"
- },
- {
-  "id": "saida-de-maternidade-azul",
-  "name": "Saída de Maternidade Azul",
-  "category": "Roupinhas",
-  "description": "Conjunto completo azul.",
-  "price": null,
-  "imageUrl": "assets/img/cat-roupinhas.png",
+  "imageUrl": "assets/img/produtos/saida-maternidade-trico.webp",
   "externalUrl": "https://shopee.com.br/product/1442901887/57110915772?credential_token=8wEwiDL7ZRzyoYw3Ay4JamMfmezMm39LNE5SFuYJXV&exp_group=rollout&gads_t_sig=gqRjZGVrxHCFomtpsTE0MjUxOnRzc19zZGtfa2V5omt20QACpGFsZ2_SAAAAZKNkZWvAomN0xEAAAAAMaaRlZwa4TmRr35EbRKe45opqqWzquDpxLoPl6a_nP90XlrFndAmj-Eti4LViLnnfxaArnW_92wfHWioVqmNpcGhlcnRleHTEmQAAAAxXbgUR9dRSBAC6huX97nIoHFdvTh-A6_22nNWprHkhB42KsS5o8W1AJDDDT8J7ft-p4sZIez0vp_7lpcNG-QlcHCTCBj_5ioJkz2oVkvt55bD5aFgEPGHh8RUhUUUxsuxT6lKYImjnzsmrGSpaRB5A4rrN-UME6fYO3Sh21iDDvJg_mqbWmuJ-EaHPhpZ88euZbPbn5Q&mmp_pid=an_18319270113&uls_trackid=56h1dec2003m&utm_campaign=id_141189913c7e29aa&utm_content=Enviopromos----&utm_medium=affiliates&utm_source=an_18319270113&utm_term=fgchxgbvhzhd"
  },
  {
-  "id": "kit-macaquinho-neutro-m",
-  "name": "Kit Macaquinho Neutro (M)",
+  "id": "saida-maternidade-dino",
+  "name": "Saída Maternidade Dino",
   "category": "Roupinhas",
-  "description": "Tons neutros.",
+  "description": "Look da primeira foto.",
   "price": null,
-  "imageUrl": "assets/img/cat-roupinhas.png",
-  "externalUrl": "https://shopee.com.br/product/1206607146/22099049921?credential_token=8wEwiDL7YDXiJxyxM7BEURpTrGq51TcHXzAbJfMHYA&exp_group=rollout&gads_t_sig=gqRjZGVrxHCFomtpsTE0MjUxOnRzc19zZGtfa2V5omt20QACpGFsZ2_SAAAAZKNkZWvAomN0xEAAAAAMaaRlZwa4TmRr35EbRKe45opqqWzquDpxLoPl6a_nP90XlrFndAmj-Eti4LViLnnfxaArnW_92wfHWioVqmNpcGhlcnRleHTEmQAAAAwoHXmk42_W1kYZj0_RryXu_fivmnnJEm7IHTgpVsXBfs5T9PhdK70nMGlMm2w8J4w0Nv85wqt4ZsymVoD5vjtldPPkRad0drCqJBm2u7UoDEzjWwxF0eZcTG-zidLBkEEna4DiJAGWLKNVh-voXadltYI26p0OXN4YkxWHocsIPoYi3Kzo6USNEIYElOg_oK2w7aSmdQ&mmp_pid=an_18319270113&uls_trackid=56h1dmeg00a5&utm_campaign=id_37357442c1bc4118&utm_content=Enviopromos----&utm_medium=affiliates&utm_source=an_18319270113&utm_term=fgci52unu64o"
- },
- {
-  "id": "conjunto-trico-manga-curta-azul-bebe",
-  "name": "Conjunto Tricô Manga Curta Azul-Bebê",
-  "category": "Roupinhas",
-  "description": "Blusa polo + shorts.",
-  "price": null,
-  "imageUrl": "assets/img/cat-roupinhas.png",
-  "externalUrl": "https://shopee.com.br/Conjunto-Tricot-Premium-Beb%C3%AA-Menino-Blusa-Polo-Manga-Curta-Shorts-Cl%C3%A1ssico-Elegante-i.1834008345.58261640717?extraParams=%7B%22display_model_id%22%3A239444000907%2C%22model_selection_logic%22%3Anull%7D"
- },
- {
-  "id": "kit-2-macacoes-pijama-0-3m",
-  "name": "Kit 2 Macacões-Pijama 0-3M (Carter’s)",
-  "category": "Roupinhas",
-  "description": "Pijamas quentinhos.",
-  "price": null,
-  "imageUrl": "assets/img/cat-roupinhas.png",
-  "externalUrl": "https://www.amazon.com.br/dp/B07Y2KGR7Y?tag=baby-split-20&th=1&psc=1"
- },
- {
-  "id": "kit-de-roupas-p",
-  "name": "Kit de Roupas (P)",
-  "category": "Roupinhas",
-  "description": "Kit variado de enxoval.",
-  "price": null,
-  "imageUrl": "assets/img/cat-roupinhas.png",
-  "externalUrl": "https://shopee.com.br/product/566592510/23092667013?credential_token=8wEwiDL7YDczz9gPcfKT3u7PjJydVHZZBrkhgJJfQL&exp_group=rollout&gads_t_sig=gqRjZGVrxHCFomtpsTE0MjUxOnRzc19zZGtfa2V5omt20QACpGFsZ2_SAAAAZKNkZWvAomN0xEAAAAAMaaRlZwa4TmRr35EbRKe45opqqWzquDpxLoPl6a_nP90XlrFndAmj-Eti4LViLnnfxaArnW_92wfHWioVqmNpcGhlcnRleHTElwAAAAy9dog5isYuuSYzR3MTfmnx_7HLxsdxEFtmK-50ntZ1QRZL8Psn2VC-BmWHNTdO4poL8z3efXHDDxHV8uEXWTbW_s-mFt9aHpHRoWTdMTAbGzwwVl7s3lx87FOIOHDXjhEghpLOltTi3I2Rg5vzJrmGwvF1LgnDOfvyioFRNxSPwdNQlsZOSimGVEjn-Hq-Yyw9IHw&mmp_pid=an_18319270113&uls_trackid=56h1i6sj00a4&utm_campaign=id_4fbb1a11075f2a36&utm_content=----&utm_medium=affiliates&utm_source=an_18319270113&utm_term=fgcmm6pqowq9"
+  "imageUrl": "assets/img/produtos/saida-maternidade-dino.webp",
+  "externalUrl": "https://shopee.com.br/product/575397523/45901685352?exp_group=rollout&gads_t_sig=gqRjZGVrxHCFomtpsTE0MjUxOnRzc19zZGtfa2V5omt20QACpGFsZ2_SAAAAZKNkZWvAomN0xEAAAAAMaaRlZwa4TmRr35EbRKe45opqqWzquDpxLoPl6a_nP90XlrFndAmj-Eti4LViLnnfxaArnW_92wfHWioVqmNpcGhlcnRleHTElwAAAAxMErzTti-Wd1Abia4KYtbZdKPukHNcg3Dy9lhZXLY9EkLye8b31XUtdd1HeCE8bey3cEX9dztQoP-NrGR3wOxoMiP5yh32eW95SVYAWVt4PXTOS1ge7RhMHhUPOSplgXHE0MaGaTzncmyNboUQzkp99m4rPzqpdg3USXFQesosIO0M08DTT2e_5imhJvfPfff9N7k&mmp_pid=an_18364220059&uls_trackid=56h193v900a5&utm_campaign=id_bd7f4d1795035b10&utm_content=instagram-obrigadodonacegonha-stories-grupo-storyinstagram&utm_medium=affiliates&utm_source=an_18364220059&utm_term=fgcemaeugdhq"
  }
 ];
 
