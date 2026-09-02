@@ -243,3 +243,4 @@ svg{display:block}
 .page-btn.active{background:var(--blue-deep);border-color:var(--blue-deep);color:#fff}
 .page-btn:disabled{opacity:.4;cursor:not-allowed}
 .page-btn.nav{font-size:18px}
+.mini-card.taken{opacity:.62}

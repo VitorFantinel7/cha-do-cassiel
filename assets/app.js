@@ -861,11 +861,35 @@ const GIFTS = [
 /* ===================== RESERVAS (localStorage) =====================
    Fica só neste navegador. Para compartilhar entre todos os convidados,
    trocar loadReservations/saveReservations por um backend. */
-const STORAGE_KEY = 'cassiel-reservations';
-function loadReservations(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); }catch(e){ return {}; } }
-function saveReservations(d){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); return true; }catch(e){ return false; } }
-let reservations = loadReservations();
-function addClaim(id,name){ const r=reservations[id]||{claims:[]}; if(!Array.isArray(r.claims)) r.claims=[]; r.claims.push({guestName:name,timestamp:Date.now()}); reservations[id]=r; }
+const SUPABASE = {
+  url: 'https://dfmqlbwlhszumxrdfaam.supabase.co/rest/v1/compras',
+  key: 'sb_publishable_bG6g9ciWWl2-PYgCB_PoMg_2jqJzdhu', // chave publica (somente ler/inserir via RLS)
+};
+function sbHeaders(){ return { apikey: SUPABASE.key, Authorization: 'Bearer '+SUPABASE.key, 'Content-Type': 'application/json' }; }
+// item_id -> nome de quem comprou (presentes). Fraldas nunca bloqueiam.
+let purchased = {};
+async function loadPurchases(){
+  try{
+    const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),7000);
+    const res=await fetch(SUPABASE.url+'?select=item_id,guest_name',{headers:sbHeaders(),signal:ctl.signal});
+    clearTimeout(t);
+    if(!res.ok) return;
+    const rows=await res.json();
+    purchased={};
+    rows.forEach(r=>{ if(!r.item_id.includes('#')) purchased[r.item_id]=r.guest_name; });
+  }catch(e){ /* sem banco, site segue sem bloqueio */ }
+}
+async function registerPurchase(itemId,name){
+  const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),8000);
+  try{
+    const res=await fetch(SUPABASE.url,{method:'POST',headers:{...sbHeaders(),Prefer:'return=minimal'},
+      body:JSON.stringify({item_id:itemId,guest_name:name}),signal:ctl.signal});
+    clearTimeout(t);
+    if(res.status===409) return 'conflict';
+    return res.ok ? 'ok' : 'error';
+  }catch(e){ clearTimeout(t); return 'error'; }
+}
+function giftTaken(g){ return !!purchased[g.id]; }
 
 /* ===================== HELPERS ===================== */
 const $=(s,el=document)=>el.querySelector(s);
@@ -948,18 +972,28 @@ function renderModal(){
   $('#modalCancel').addEventListener('click',closeModal);
   modal.addEventListener('mousedown',e=>{ if(e.target===modal) closeModal(); });
   window.addEventListener('keydown',e=>{ if(e.key==='Escape'&&modal.classList.contains('open')) closeModal(); });
-  $('#reserveForm').addEventListener('submit',e=>{
+  $('#reserveForm').addEventListener('submit',async e=>{
     e.preventDefault();
     const name=nameInput.value.trim();
     if(!name){ err.textContent='Por favor, digite seu nome para continuar.'; err.hidden=false; nameInput.focus(); return; }
     err.hidden=true;
-    reservations=loadReservations();
-    const {item}=current;
-    addClaim(item.id,name);
-    saveReservations(reservations);
+    const {item,type}=current;
+    const submitBtn=e.target.querySelector('button[type=submit]');
+    submitBtn.disabled=true; submitBtn.textContent='Registrando...';
+    const itemId = type==='diaper' ? item.id+'#'+Date.now() : item.id;
+    const result = await registerPurchase(itemId,name);
+    submitBtn.disabled=false; submitBtn.textContent='Confirmar e ir para a loja';
+    if(result==='conflict'){
+      await loadPurchases(); rerender();
+      closeModal();
+      toast('Ops! Outra pessoa acabou de escolher esse presente 💙');
+      return;
+    }
+    if(type!=='diaper' && result==='ok') purchased[item.id]=name;
     if(item.externalUrl) window.open(item.externalUrl,'_blank','noopener,noreferrer');
     closeModal();
     toast(`Obrigado, ${name}! Abrimos a loja em uma nova aba 💙`);
+    rerender();
   });
 }
 let toastTimer;
@@ -979,10 +1013,11 @@ function miniDiaper(d){
   </div>`;
 }
 function miniGift(g){
-  return `<div class="mini-card">
+  const t=giftTaken(g);
+  return `<div class="mini-card ${t?'taken':''}">
     <div class="thumb"><img src="${esc(g.imageUrl)}" alt=""></div>
     <span class="name">${esc(g.name)}</span>
-    <button class="btn btn-primary btn-sm" data-choose="${g.id}" data-type="gift">Quero presentear</button>
+    <button class="btn btn-primary btn-sm" data-choose="${g.id}" data-type="gift" ${t?'disabled':''}>${t?'Comprado 💙':'Quero presentear'}</button>
   </div>`;
 }
 function diaperCard(d){
@@ -997,14 +1032,16 @@ function diaperCard(d){
     </div></article>`;
 }
 function giftCard(g){
-  return `<article class="product-card reveal">
+  const t=giftTaken(g);
+  return `<article class="product-card reveal ${t?'taken':''}">
     <div class="product-media"><img src="${esc(g.imageUrl)}" alt=""></div>
     <div class="product-body">
       <span class="badge soft">${esc(g.category)}</span>
       <h3>${esc(g.name)}</h3>
       <p class="product-desc">${esc(g.description)}</p>
       <div class="spacer"></div>
-      <button class="btn btn-primary w-full" data-choose="${g.id}" data-type="gift">Quero presentear</button>
+      ${t?'<span class="status taken">Comprado 💙</span>':''}
+      <button class="btn btn-primary w-full" data-choose="${g.id}" data-type="gift" ${t?'disabled':''}>${t?'Comprado':'Quero presentear'}</button>
     </div></article>`;
 }
 
@@ -1025,4 +1062,5 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
   if(typeof window.initPage==='function') window.initPage();
   observeReveal();
+  loadPurchases().then(()=>rerender());
 });
