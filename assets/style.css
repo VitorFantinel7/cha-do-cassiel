@@ -292,3 +292,10 @@ svg{display:block}
 #listaBusca:focus{outline:2px solid var(--blue-baby);border-color:var(--blue-gray)}
 .lista-vazia{grid-column:1/-1;text-align:center;color:var(--brown-soft);padding:30px 0}
 .item-card.riscado .top{padding-right:64px}
+/* popup de saída */
+.exit-card{text-align:center;animation:exitPop .35s cubic-bezier(.2,1.4,.5,1)}
+.exit-card .exit-bear{width:110px;margin:0 auto 10px;mix-blend-mode:multiply}
+.exit-card h3{padding-right:0}
+.exit-card .modal-text{margin-top:10px}
+@keyframes exitPop{from{opacity:0;transform:translateY(26px) scale(.92)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.exit-card{animation:none}}

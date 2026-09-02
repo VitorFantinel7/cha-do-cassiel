@@ -614,6 +614,35 @@ function renderModal(){
     </div>
   </div>
   <div class="toast" id="toast" role="status"></div>`);
+  document.body.insertAdjacentHTML('beforeend',`
+  <div class="modal-overlay" id="exitPopup">
+    <div class="modal-card exit-card" role="dialog" aria-modal="true" aria-labelledby="exitTitle">
+      <button class="modal-close" id="exitClose" aria-label="Fechar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <img class="exit-bear" src="assets/img/bear-heart-balloon.png" alt="">
+      <h3 id="exitTitle">Não vai escolher nada? 😢</h3>
+      <p class="modal-text">O Cassiel ia adorar um mimo seu... Dá uma olhadinha na lista — tem presente de todo jeitinho! 💙</p>
+      <div class="modal-actions" style="justify-content:center">
+        <button type="button" class="btn btn-secondary" id="exitLater">Agora não</button>
+        <a class="btn btn-primary" href="lista.html">Ver a lista de presentes</a>
+      </div>
+    </div>
+  </div>`);
+  const exitPopup=$('#exitPopup');
+  function closeExit(){ exitPopup.classList.remove('open'); document.body.style.overflow=''; }
+  function openExit(){
+    try{ if(sessionStorage.getItem('cassiel-exit-shown')) return; sessionStorage.setItem('cassiel-exit-shown','1'); }catch(e){}
+    if($('#modal').classList.contains('open')) return;
+    exitPopup.classList.add('open'); document.body.style.overflow='hidden';
+  }
+  $('#exitClose').addEventListener('click',closeExit);
+  $('#exitLater').addEventListener('click',closeExit);
+  exitPopup.addEventListener('mousedown',e=>{ if(e.target===exitPopup) closeExit(); });
+  window.addEventListener('keydown',e=>{ if(e.key==='Escape'&&exitPopup.classList.contains('open')) closeExit(); });
+  if(!window.matchMedia('(pointer:coarse)').matches){
+    setTimeout(()=>{ document.addEventListener('mouseout',e=>{
+      if(!e.relatedTarget && e.clientY<=8) openExit();
+    }); },5000);
+  }
   const modal=$('#modal'), nameInput=$('#guestName'), err=$('#formError');
   let currentId=null;
   window.openReserve=function(id){
