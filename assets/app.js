@@ -81,7 +81,7 @@ const DIAPERS = [
  {
   "id": "fralda-pampers-supersec-68un",
   "name": "Pampers SuperSec 68un",
-  "size": "",
+  "size": "M",
   "brand": "Ou outra marca de sua preferência",
   "quantity": 5,
   "imageUrl": "assets/img/diaper.png",
