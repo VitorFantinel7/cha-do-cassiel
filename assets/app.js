@@ -709,11 +709,12 @@ function renderModal(){
     if(!isDiaper) purchased[id]=name;
     purchaseRows.push({item_id:isDiaper? id+'#x':id, guest_name:name});
     closeModal();
-    // animação de riscar no card visível antes de redesenhar
+    // animação: risco + carimbo batendo no card visível
     const card=document.querySelector(`[data-lista-card="${id}"]`);
     if(card && !isDiaper){
-      card.classList.add('riscado');
-      setTimeout(()=>rerender(),950);
+      const item=GIFTS.find(g=>g.id===id);
+      card.outerHTML=listaCard(item,false).replace('item-card riscado','item-card riscado animar');
+      setTimeout(()=>rerender(),1500);
     } else { rerender(); }
     toast(`Obrigado, ${name}! Presente riscado da lista 💙`);
   });
@@ -772,20 +773,55 @@ function listaCard(item,isDiaper){
   const t=!isDiaper&&giftTaken(item);
   const nome=isDiaper?`Fralda ${item.name} — Tam. ${item.size}`:item.name;
   return `<div class="item-card ${t?'riscado':''}" data-lista-card="${item.id}">
-    ${t?'<span class="selo">Reservado</span>':''}
+    ${t?'<span class="stamp">RESERVADO 💙</span>':''}
     <div class="top"><img src="${esc(item.imageUrl)}" alt=""><span class="nome-item">${esc(nome)}</span></div>
     ${t?`<span class="fita">${esc(purchased[item.id])} vai dar 💙</span>`
        :`<div class="item-actions"><button class="btn btn-primary btn-sm" data-reserve="${item.id}">Vou dar esse!</button><a class="loja-link" href="${esc(item.externalUrl)}" target="_blank" rel="noopener noreferrer">ver na loja ↗</a></div>`}
   </div>`;
 }
+let listaCat='Todos', listaBusca='', listaPage=1;
+const LISTA_PAGE_SIZE=12;
+function normaliza(s){ return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
 function renderListaPage(){
   const grid=document.getElementById('listaGrid'); if(!grid) return;
-  const cards=[...GIFTS.map(g=>listaCard(g,false)),...DIAPERS.map(d=>listaCard(d,true))];
-  grid.innerHTML=cards.join('');
+  const todos=[...GIFTS.map(g=>({item:g,isDiaper:false,cat:g.category})),
+               ...DIAPERS.map(d=>({item:d,isDiaper:true,cat:'Fraldas'}))];
+  const cats=['Todos',...GIFT_CATEGORIES.map(c=>c.key),'Fraldas'];
+  document.getElementById('listaPills').innerHTML=cats.map(c=>
+    `<button role="tab" class="pill ${c===listaCat?'active':''}" aria-selected="${c===listaCat}" data-lcat="${esc(c)}">${esc(c)}</button>`).join('');
+  let list=listaCat==='Todos'?todos:todos.filter(x=>x.cat===listaCat);
+  if(listaBusca) list=list.filter(x=>normaliza(x.item.name).includes(normaliza(listaBusca)));
+  const pages=Math.max(1,Math.ceil(list.length/LISTA_PAGE_SIZE));
+  if(listaPage>pages) listaPage=pages;
+  const slice=list.slice((listaPage-1)*LISTA_PAGE_SIZE,listaPage*LISTA_PAGE_SIZE);
+  grid.innerHTML=slice.length?slice.map(x=>listaCard(x.item,x.isDiaper)).join('')
+    :'<p class="lista-vazia">Nenhum presente encontrado com essa busca 💙</p>';
+  const pager=document.getElementById('listaPager');
+  if(pages<=1){ pager.innerHTML=''; }
+  else{
+    let nums='';
+    for(let i=1;i<=pages;i++) nums+=`<button class="page-btn ${i===listaPage?'active':''}" data-lpage="${i}" ${i===listaPage?'aria-current="page"':''}>${i}</button>`;
+    pager.innerHTML=`<button class="page-btn nav" data-lpage="${listaPage-1}" ${listaPage===1?'disabled':''} aria-label="Página anterior">‹</button>${nums}<button class="page-btn nav" data-lpage="${listaPage+1}" ${listaPage===pages?'disabled':''} aria-label="Próxima página">›</button>`;
+  }
+  document.getElementById('listaInfo').textContent=list.length+(list.length===1?' item':' itens')+(pages>1?` • página ${listaPage} de ${pages}`:'');
+}
+function initListaPage(){
+  const busca=document.getElementById('listaBusca'); if(!busca) return;
+  busca.addEventListener('input',()=>{ listaBusca=busca.value; listaPage=1; renderListaPage(); });
+  document.getElementById('listaPills').addEventListener('click',e=>{
+    const p=e.target.closest('[data-lcat]'); if(!p) return;
+    listaCat=p.dataset.lcat; listaPage=1; renderListaPage();
+  });
+  document.getElementById('listaPager').addEventListener('click',e=>{
+    const b=e.target.closest('[data-lpage]'); if(!b||b.disabled) return;
+    listaPage=parseInt(b.dataset.lpage,10); renderListaPage();
+    document.getElementById('listaBusca').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  renderListaPage();
 }
 function renderListaPreview(){
   const el=document.getElementById('listaPreview'); if(!el) return;
-  el.innerHTML=GIFTS.slice(0,6).map(g=>listaCard(g,false)).join('');
+  el.innerHTML=GIFTS.slice(0,8).map(g=>listaCard(g,false)).join('');
 }
 function initLista(){
   document.addEventListener('click',e=>{

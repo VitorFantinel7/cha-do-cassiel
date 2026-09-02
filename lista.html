@@ -19,7 +19,13 @@
   <a class="crumb" href="index.html">← Voltar ao início</a>
 </section>
 <section class="section" style="padding-top:8px">
+  <div class="lista-toolbar">
+    <input id="listaBusca" type="search" placeholder="Buscar presente... 🔍" aria-label="Buscar presente">
+    <div class="pills" id="listaPills" role="tablist" aria-label="Filtrar por categoria"></div>
+  </div>
+  <p class="page-info" id="listaInfo"></p>
   <div class="lista-grid" id="listaGrid"></div>
+  <nav class="pager" id="listaPager" aria-label="Paginação"></nav>
 </section>
 </main>
 <footer class="site-footer" id="site-footer"></footer>
@@ -29,7 +35,7 @@
 </a>
 <script src="assets/app.js"></script>
 <script>
-function initPage(){ renderListaPage(); }
+function initPage(){ initListaPage(); }
 </script>
 </body>
 </html>
